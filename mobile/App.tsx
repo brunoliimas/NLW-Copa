@@ -1,32 +1,26 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NativeBaseProvider, StatusBar } from "native-base";
+import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
+
+import { Loading } from './src/components/Loading';
+import { SingIn } from './src/screens/SignIn';
+
+import { THEME } from './src/styles/theme';
+
 
 export default function App() {
+  const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_500Medium, Roboto_700Bold })
+
+
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bruno Lima</Text>
-      <Text style={styles.text}>React e React Native</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider theme={THEME}>
+      <StatusBar
+        barStyle='light-content'
+        backgroundColor={'transparent'}
+        translucent
+      />
+        {fontsLoaded ? <SingIn /> : <Loading />}
+    </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#008855',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 40,
-    color: '#fff',
-    fontWeight: 'bold'
-  },
-  text: {
-    fontSize: 20,
-    color: '#f88',
-    fontWeight: 'bold'
-  }
-});
